@@ -1,6 +1,5 @@
 import 'package:bmi_calculator/Input_Page.dart';
 import 'package:bmi_calculator/formate.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ResultPage extends StatelessWidget {
@@ -16,7 +15,13 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    if (resultTest == 'UNDERWEIGHT') {
+      return UnderWeight();
+    } else if (resultTest == 'NORMAL') {
+      return Normal();
+    } else {
+      Overweight();
+    }
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text("BMI RESULT ")),
@@ -49,6 +54,95 @@ class ResultPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Overweight extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+//          color: Colors.cyanAccent[400],
+          child: Column(
+            children: [
+              Image.asset("assets/overweight.png"),
+//              ResultPage(),
+              RaisedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: CalculateButton(
+                  buttonText: ' Re - Calculate ',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class UnderWeight extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Expanded(
+          child: SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+//          color: Colors.cyanAccent[400],
+              child: Column(
+                children: [
+                  Image.asset("assets/under.png"),
+                  RaisedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: CalculateButton(
+                      buttonText: ' Re - Calculate ',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Normal extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Expanded(
+          child: Container(
+            width: double.infinity,
+//            color: Colors.cyanAccent[400],
+            child: Column(
+              children: [
+                Image.asset("assets/normal.png"),
+                RaisedButton(
+                  color: buttonColor,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: CalculateButton(
+                    buttonText: ' Re - Calculate ',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
